@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
 {
     public Transform target;
     public float stoppingDistance = 1.5f;
-    public float rotationSpeed = 720f;
-
     private EnemyStatsHolder statsHolder;
+    private NavMeshAgent agent;
     private Animator anim;
     bool isAggro = false;
     private float lastSeenTime = -Mathf.Infinity;
@@ -18,6 +18,10 @@ public class EnemyMovement : MonoBehaviour
     {
         statsHolder = GetComponent<EnemyStatsHolder>();
         anim = GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
+        agent.speed = statsHolder.moveSpeed;
+        agent.updateRotation = true;
+        agent.updateUpAxis   = true;
     }
 
     void Update()
@@ -43,26 +47,17 @@ public class EnemyMovement : MonoBehaviour
         }
         else
         {
-            if (dist > stoppingDistance)
-            {
-                Vector3 dir = (target.position - transform.position).normalized;
-                transform.position += dir * statsHolder.moveSpeed * Time.deltaTime;
-
-                Quaternion targetRot = Quaternion.LookRotation(dir, Vector3.up);
-                transform.rotation = Quaternion.Slerp(
-                    transform.rotation,
-                    targetRot,
-                    rotationSpeed * Time.deltaTime / 360f
-                );
-
-                float speedPct = statsHolder.moveSpeed / statsHolder.moveSpeed; // Always 1
-                anim.SetFloat("MoveSpeed", speedPct);
-            }
+            if (dist <= stoppingDistance)
+                agent.isStopped = true;
             else
             {
-                anim.SetFloat("MoveSpeed", 0f);
+                agent.isStopped = false;
+                agent.SetDestination(target.position);
             }
         }
+
+        float speedPct = agent.velocity.magnitude / statsHolder.moveSpeed;
+        anim.SetFloat("MoveSpeed", speedPct);
     }
 
     public void StopMoving()
