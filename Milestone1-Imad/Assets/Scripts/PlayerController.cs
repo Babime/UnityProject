@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
 
             if (animator != null)
             {
+                print(rb.velocity.magnitude);
                 animator.SetFloat("Speed", rb.velocity.magnitude);
             }
 
