@@ -51,7 +51,6 @@ public class PlayerController : MonoBehaviour
             {
                 inputDir = Vector3.zero;
             }
-            print(Input.GetAxis("Sprint"));
             bool shiftHeld = Input.GetKey(KeyCode.LeftShift) || Input.GetAxis("Sprint") > 0;
             isRunning = shiftHeld && isMoving && stats.currentStamina > 0f;
 
@@ -66,7 +65,6 @@ public class PlayerController : MonoBehaviour
 
             if (animator != null)
             {
-                print(rb.velocity.magnitude);
                 animator.SetFloat("Speed", rb.velocity.magnitude);
             }
 

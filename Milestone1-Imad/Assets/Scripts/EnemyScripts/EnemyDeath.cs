@@ -37,25 +37,36 @@ public class EnemyDeath : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         bool shouldRespawn = true;
+        var combat = GetComponent<EnemyCombat>();
 
         if (shouldRespawn)
         {
+            if (combat != null)
+                combat.enabled = false;
             anim.SetTrigger("Respawn");
             yield return new WaitForSeconds(statsHolder.spawnDuration);
             isDying = false;
             healthComponent.ResetHealth();
             movement.StartMoving();
+            combat.enabled = true;
+
         }
         else
         {
+            if (combat != null)
+                combat.enabled = false;
             anim.SetTrigger("DiePerm");
             yield return new WaitForSeconds(2f);
             Destroy(gameObject);
+            combat.enabled = true;
         }
     }
 
     private IEnumerator SpawnRoutine()
     {
+        var combat = GetComponent<EnemyCombat>();
+        if (combat != null)
+            combat.enabled = false;
         healthComponent.isInvulnerable = true;
         movement.StopMoving();
         anim.SetTrigger("Spawn");
@@ -66,5 +77,6 @@ public class EnemyDeath : MonoBehaviour
 
         movement.StartMoving();
         healthComponent.isInvulnerable = false;
+        combat.enabled = true;
     }
 }
