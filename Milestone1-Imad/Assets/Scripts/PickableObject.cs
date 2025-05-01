@@ -8,9 +8,13 @@ public class PickableObject : MonoBehaviour
     private bool playerInRange = false;
     private PlayerInventory playerInventory;
     private ItemData itemData;
+    private Outline[] outlines;
+
 
     void Awake()
     {
+        outlines = GetComponentsInChildren<Outline>(true);
+
         ItemDataHolder refComponent = GetComponent<ItemDataHolder>();
 
         if (refComponent != null)
@@ -33,6 +37,8 @@ public class PickableObject : MonoBehaviour
         {
             PickUp();
         }
+        foreach (var o in outlines)
+            o.enabled = playerInRange;
     }
 
     private void OnTriggerEnter(Collider other)

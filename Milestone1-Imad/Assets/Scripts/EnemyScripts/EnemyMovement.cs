@@ -13,6 +13,8 @@ public class EnemyMovement : MonoBehaviour
     bool isAggro = false;
     private float lastSeenTime = -Mathf.Infinity;
     bool isMoving = true;
+    public float rotationSpeed = 720f;
+
 
     void Awake()
     {
@@ -20,8 +22,9 @@ public class EnemyMovement : MonoBehaviour
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         agent.speed = statsHolder.moveSpeed;
-        agent.updateRotation = true;
+        agent.updateRotation = false;
         agent.updateUpAxis   = true;
+        target = GameObject.FindWithTag("Player")?.transform;
     }
 
     void Update()
@@ -43,17 +46,26 @@ public class EnemyMovement : MonoBehaviour
 
         if (!isAggro)
         {
+            agent.isStopped = true;
             anim.SetFloat("MoveSpeed", 0f);
+            return;
+        }
+        if (dist > stoppingDistance)
+        {
+            agent.isStopped = false;
+            agent.speed = statsHolder.moveSpeed;
+            agent.SetDestination(target.position);
+
+            Vector3 vel = agent.desiredVelocity;
+            if (vel.sqrMagnitude > 0.01f)
+                RotateTowards(vel.normalized);
         }
         else
         {
-            if (dist <= stoppingDistance)
-                agent.isStopped = true;
-            else
-            {
-                agent.isStopped = false;
-                agent.SetDestination(target.position);
-            }
+            agent.isStopped = true;
+            Vector3 dirToPlayer = (target.position - transform.position).normalized;
+            if (dirToPlayer.sqrMagnitude > 0.01f)
+                RotateTowards(dirToPlayer);
         }
 
         float speedPct = agent.velocity.magnitude / statsHolder.moveSpeed;
@@ -63,10 +75,22 @@ public class EnemyMovement : MonoBehaviour
     public void StopMoving()
     {
         isMoving = false;
+        agent.isStopped = true;
+        anim.SetFloat("MoveSpeed", 0f);
     }
-
     public void StartMoving()
     {
         isMoving = true;
+        agent.isStopped = false;
+    }
+
+    private void RotateTowards(Vector3 direction)
+    {
+        Quaternion targetRot = Quaternion.LookRotation(direction, Vector3.up);
+        transform.rotation = Quaternion.RotateTowards(
+            transform.rotation,
+            targetRot,
+            rotationSpeed * Time.deltaTime
+        );
     }
 }
