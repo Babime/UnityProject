@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ed66809ff0771241b7688105b9abc42, type: 3}
   m_Name: 2H_Axe
   m_EditorClassIdentifier: 
+  itemName: 
   itemIcon: {fileID: 21300000, guid: db210e18da1276f4b953bcc4f49d2140, type: 3}
   inHandObjectName: 2H_Axe
+  comboSequence: []

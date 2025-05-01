@@ -21,18 +21,23 @@ public class PlayerController : MonoBehaviour
     private bool canDash = true;
     private bool isRunning = false;
     private PlayerStats stats;
+    PlayerCombat combat;
     private bool isAlive = true;
+
+    [Header("Control Flags")]
+    public bool canMove = true;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         stats = GetComponent<PlayerStats>();
+        combat = GetComponent<PlayerCombat>();
     }
 
     void Update()
     {
-        if (!isAlive) return; 
+        if (!isAlive) return;
 
         float moveX = -Input.GetAxisRaw("Horizontal");
         float moveZ = -Input.GetAxisRaw("Vertical");
@@ -42,18 +47,18 @@ public class PlayerController : MonoBehaviour
 
         if (!isDashing)
         {
-            if (isMoving)
+            if (canMove && isMoving)
             {
                 inputDir = rawInput.normalized;
                 transform.rotation = Quaternion.LookRotation(inputDir, Vector3.up);
             }
-            else
+            else if (!canMove || !isMoving)
             {
                 inputDir = Vector3.zero;
             }
-            print(Input.GetAxis("Sprint"));
+
             bool shiftHeld = Input.GetKey(KeyCode.LeftShift) || Input.GetAxis("Sprint") > 0;
-            isRunning = shiftHeld && isMoving && stats.currentStamina > 0f;
+            isRunning = canMove && shiftHeld && isMoving && stats.currentStamina > 0f;
 
             if (isRunning)
             {
@@ -66,7 +71,6 @@ public class PlayerController : MonoBehaviour
 
             if (animator != null)
             {
-                print(rb.velocity.magnitude);
                 animator.SetFloat("Speed", rb.velocity.magnitude);
             }
 
@@ -74,16 +78,14 @@ public class PlayerController : MonoBehaviour
             {
                 Dash();
             }
-
-            // stats.TakeDamage(20f * Time.deltaTime);
         }
     }
 
     void FixedUpdate()
     {
-        if (!isAlive) return; 
+        if (!isAlive) return;
 
-        if (!isDashing)
+        if (!isDashing && canMove)
         {
             float targetSpeed = isRunning ? runSpeed : walkSpeed;
             rb.velocity = inputDir * targetSpeed;
@@ -92,11 +94,11 @@ public class PlayerController : MonoBehaviour
 
     void Dash()
     {
-        if (!isAlive) return; 
+        if (!isAlive) return;
 
-        if (!stats.SpendStamina(dashCost))
+        if ((combat.inputLocked && animator.GetBool("CanMoveInterrupt") == false) || !stats.SpendStamina(dashCost) )
             return;
-
+        
         canDash = false;
         isDashing = true;
 
@@ -105,12 +107,24 @@ public class PlayerController : MonoBehaviour
             animator.SetTrigger("Dash");
         }
 
-        Vector3 dashDir = inputDir != Vector3.zero ? inputDir : transform.forward;
+        float moveX = -Input.GetAxisRaw("Horizontal");
+        float moveZ = -Input.GetAxisRaw("Vertical");
+        Vector3 dashInput = new Vector3(moveX, 0f, moveZ).normalized;
+
+        Vector3 dashDir = dashInput.sqrMagnitude > 0f ? dashInput : inputDir;
+        
+        if (!canMove) {
+            transform.rotation = Quaternion.LookRotation(dashDir, Vector3.up);
+            combat.EndAttackMovementLock();
+        }
+
         rb.velocity = Vector3.zero;
         rb.AddForce(dashDir * dashForce, ForceMode.VelocityChange);
 
+
         StartCoroutine(DashCooldown());
     }
+
 
     IEnumerator DashCooldown()
     {
@@ -123,16 +137,16 @@ public class PlayerController : MonoBehaviour
 
     public void Die()
     {
-        isAlive = false; 
+        isAlive = false;
         rb.velocity = Vector3.zero;
         if (animator != null)
         {
-            animator.SetTrigger("Die"); 
+            animator.SetTrigger("Die");
         }
     }
 
     public void Revive()
     {
-        isAlive = true; 
+        isAlive = true;
     }
 }

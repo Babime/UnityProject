@@ -18,6 +18,8 @@ public class PlayerInventory : MonoBehaviour
 
     private ItemHandler itemHandler;
 
+    public bool canNavigate = true; 
+
     void Awake()
     {
         itemHandler = GetComponent<ItemHandler>();
@@ -53,7 +55,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void NavigateRight()
     {
-        if (items.Count == 0) return;
+        if (items.Count == 0 || !canNavigate) return;
 
         currentIndex = (currentIndex + 1) % items.Count;
         EquipCurrentItem();
@@ -62,7 +64,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void NavigateLeft()
     {
-        if (items.Count == 0) return;
+        if (items.Count == 0 || !canNavigate) return;
 
         currentIndex = (currentIndex - 1 + items.Count) % items.Count;
         EquipCurrentItem();
@@ -95,5 +97,17 @@ public class PlayerInventory : MonoBehaviour
 
         previousItemImage.sprite = items[previousIndex].itemIcon;
         nextItemImage.sprite = items[nextIndex].itemIcon;
+    }
+
+    public ItemData CurrentItem
+    {
+        get
+        {
+            if (items.Count > 0)
+            {
+                return items[currentIndex];
+            }
+            return null;
+        }
     }
 }

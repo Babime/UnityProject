@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ed66809ff0771241b7688105b9abc42, type: 3}
   m_Name: 1H_Sword
   m_EditorClassIdentifier: 
+  itemName: 
   itemIcon: {fileID: 21300000, guid: 433789e037e3d2f41bde9069aba3e573, type: 3}
   inHandObjectName: 1H_Sword
+  comboSequence:
+  - animationTrigger: 1H_Melee_Attack_Slice_Diagonal
+    lockoutDuration: 0.15
