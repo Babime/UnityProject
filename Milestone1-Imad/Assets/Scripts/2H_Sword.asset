@@ -18,9 +18,9 @@ MonoBehaviour:
   comboSequence:
   - animationTrigger: 2H_Melee_Attack_Chop
     lockoutDuration: 0.22
-    comboWindowEnd: 1
-    comboWindowStart: 1.53
+    comboWindowStart: 1
+    comboWindowEnd: 1.53
   - animationTrigger: 2H_Melee_Attack_Stab
     lockoutDuration: 0.15
-    comboWindowEnd: 0
     comboWindowStart: 0
+    comboWindowEnd: 0
