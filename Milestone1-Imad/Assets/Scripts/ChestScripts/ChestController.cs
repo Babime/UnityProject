@@ -67,8 +67,20 @@ public class ChestController : MonoBehaviour
         foreach (var prefab in lootPrefabs)
         {
             Vector2 rnd = Random.insideUnitCircle * lootSpreadRadius;
-            Vector3 pos = lootSpawnPoint.position + new Vector3(rnd.x, 0, rnd.y);
-            Instantiate(prefab, pos, Quaternion.identity);
+            Vector3 spawnPos = lootSpawnPoint.position + new Vector3(rnd.x, 0, rnd.y);
+
+            var loot = Instantiate(prefab, spawnPos, Quaternion.identity);
+
+            Vector3 dirFromChest = (spawnPos - transform.position).normalized;
+            float spawnOffset = 0.5f;
+            Vector3 finalPos = spawnPos + dirFromChest * spawnOffset;
+
+            var fb = loot.AddComponent<FountainBounceEffect>();
+            fb.endPosition   = finalPos;
+            fb.arcHeight     = 1.5f;   
+            fb.arcDuration   = 0.5f;   
+            fb.bounceHeight  = 0.2f;
+            fb.bounceDuration= 0.2f;
         }
 
         Vector3 startScale = transform.localScale;

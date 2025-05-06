@@ -6,9 +6,10 @@ public class EnemyDeath : MonoBehaviour
 {
     private EnemyStatsHolder statsHolder;
     private Animator anim;
-    private bool isDying = false;
     private EnemyHealth healthComponent;
     private EnemyMovement movement;
+    private EnemyCombat combat;
+    private EnemyRangedCombat rangedCombat;
 
     void Awake()
     {
@@ -16,6 +17,8 @@ public class EnemyDeath : MonoBehaviour
         anim = GetComponent<Animator>();
         movement = GetComponent<EnemyMovement>();
         healthComponent = GetComponent<EnemyHealth>();
+        combat = GetComponent<EnemyCombat>();
+        rangedCombat = GetComponent<EnemyRangedCombat>();
     }
 
     void Start()
@@ -25,8 +28,12 @@ public class EnemyDeath : MonoBehaviour
 
     public void HandleDeath()
     {
-        if (isDying) return;
-        isDying = true;
+        if (statsHolder.isDead) return;
+            statsHolder.isDead = true;
+
+        movement.enabled = false;
+        if (combat != null) combat.enabled = false;
+        if (rangedCombat != null) rangedCombat.enabled = false;
         StartCoroutine(DeathRoutine());
     }
 
@@ -34,49 +41,50 @@ public class EnemyDeath : MonoBehaviour
     {
         movement.StopMoving();
         anim.SetTrigger("DieTemp");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
 
         bool shouldRespawn = true;
-        var combat = GetComponent<EnemyCombat>();
 
         if (shouldRespawn)
         {
-            if (combat != null)
-                combat.enabled = false;
-            anim.SetTrigger("Respawn");
-            yield return new WaitForSeconds(statsHolder.spawnDuration);
-            isDying = false;
-            healthComponent.ResetHealth();
-            movement.StartMoving();
-            combat.enabled = true;
+            statsHolder.isDead = false;
+            movement.enabled = false;
+            if (combat != null) combat.enabled = false;
+            if (rangedCombat != null) rangedCombat.enabled = false;
 
+            anim.SetTrigger("Respawn");
+            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + 2f);
+            healthComponent.ResetHealth();
+            movement.enabled = true;
+            if (combat != null) combat.enabled = true;
+            if (rangedCombat != null) rangedCombat.enabled = true;
         }
         else
         {
-            if (combat != null)
-                combat.enabled = false;
+            if (combat != null) combat.enabled = false;
+            if (rangedCombat != null) rangedCombat.enabled = false;
             anim.SetTrigger("DiePerm");
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
             Destroy(gameObject);
-            combat.enabled = true;
+            if (combat != null) combat.enabled = true;
+            if (rangedCombat != null) rangedCombat.enabled = true;
         }
     }
 
     private IEnumerator SpawnRoutine()
     {
-        var combat = GetComponent<EnemyCombat>();
-        if (combat != null)
-            combat.enabled = false;
+        if (combat != null) combat.enabled = false;
         healthComponent.isInvulnerable = true;
+        if (rangedCombat != null) rangedCombat.enabled = false;
         movement.StopMoving();
         anim.SetTrigger("Spawn");
-        yield return new WaitForSeconds(statsHolder.spawnDuration);
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
 
-        if (isDying)
-            GetComponent<EnemyHealth>().ResetHealth();
+        GetComponent<EnemyHealth>().ResetHealth();
 
         movement.StartMoving();
         healthComponent.isInvulnerable = false;
-        combat.enabled = true;
+        if (combat != null) combat.enabled = true;
+        if (rangedCombat != null) rangedCombat.enabled = true;
     }
 }

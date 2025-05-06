@@ -635,11 +635,17 @@ MonoBehaviour:
   moveSpeed: 3
   perseveranceTime: 2
   detectionRange: 10
+  rotationSpeed: 720
   attackRange: 2
   attackCooldown: 1.2
   damage: 10
   attackAngle: 30
+  rangedAttackCooldown: 2
+  fireDelay: 0.4
+  projectileSpeed: 12
+  projectileDamage: 20
   spawnDuration: 4
+  isDead: 0
 --- !u!114 &5315551262796849031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,8 +674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  stoppingDistance: 1.5
-  rotationSpeed: 720
+  isMoving: 1
 --- !u!114 &6426937374010111994
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -22,8 +22,9 @@ public class EnemyCombat : MonoBehaviour
     {
         stats = GetComponent<EnemyStatsHolder>();
         movement = GetComponent<EnemyMovement>();
-        anim     = GetComponent<Animator>();
-        player   = GameObject.FindWithTag("Player")?.transform;
+        anim = GetComponent<Animator>();
+        player = GameObject.FindWithTag("Player")?.transform;
+
     }
 
     void Start()
@@ -37,7 +38,7 @@ public class EnemyCombat : MonoBehaviour
 
     void Update()
     {
-        if (player == null) return;
+        if (player == null || stats.isDead) return;
 
         float dist = Vector3.Distance(transform.position, player.position);
 
@@ -47,40 +48,24 @@ public class EnemyCombat : MonoBehaviour
             float angle = Vector3.Angle(transform.forward, toPlayer);
             if (angle > stats.attackAngle)
                 return;
-            movement.StopMoving();
             
             if (Time.time - lastAttackTime >= stats.attackCooldown && !isAttacking)
             {
-                Debug.Log("Attack possible");
                 StartCoroutine(AttackRoutine());
             }
 
-        }
-        else
-        {
-            movement.StartMoving();
         }
     }
 
     private IEnumerator AttackRoutine()
     {
+        movement.StopMoving();
         isAttacking = true;
         lastAttackTime = Time.time;
 
-        movement.StopMoving();
-
         anim.SetTrigger("Attack");
 
-        AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
-        float clipLength = state.length;
-        yield return new WaitForSeconds(clipLength);
-
-        // 4) Applique les dégâts (si tu veux qu’ils arrivent à la fin)
-        // var ph = player.GetComponent<PlayerHealth>();
-        // if (ph != null)
-        //     ph.TakeDamage(damage);
-
-        // 5) Relance le mouvement et autorise la prochaine attaque
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length - 1f);
         movement.StartMoving();
         isAttacking = false;
     }

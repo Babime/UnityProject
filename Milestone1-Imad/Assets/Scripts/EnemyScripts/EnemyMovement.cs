@@ -6,14 +6,12 @@ using UnityEngine.AI;
 public class EnemyMovement : MonoBehaviour
 {
     public Transform target;
-    public float stoppingDistance = 1.5f;
     private EnemyStatsHolder statsHolder;
     private NavMeshAgent agent;
     private Animator anim;
     bool isAggro = false;
     private float lastSeenTime = -Mathf.Infinity;
-    bool isMoving = true;
-    public float rotationSpeed = 720f;
+    public bool isMoving = true;
 
 
     void Awake()
@@ -29,7 +27,7 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
-        if (target == null || !isMoving) return;
+        if (target == null || !isMoving || statsHolder.isDead) return;
 
         float dist = Vector3.Distance(transform.position, target.position);
 
@@ -50,7 +48,7 @@ public class EnemyMovement : MonoBehaviour
             anim.SetFloat("MoveSpeed", 0f);
             return;
         }
-        if (dist > stoppingDistance)
+        if (dist > statsHolder.attackRange)
         {
             agent.isStopped = false;
             agent.speed = statsHolder.moveSpeed;
@@ -90,7 +88,7 @@ public class EnemyMovement : MonoBehaviour
         transform.rotation = Quaternion.RotateTowards(
             transform.rotation,
             targetRot,
-            rotationSpeed * Time.deltaTime
+            statsHolder.rotationSpeed * Time.deltaTime
         );
     }
 }

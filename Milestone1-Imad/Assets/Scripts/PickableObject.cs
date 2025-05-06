@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PickableObject : MonoBehaviour
@@ -9,6 +10,9 @@ public class PickableObject : MonoBehaviour
     private PlayerInventory playerInventory;
     private ItemData itemData;
     private Outline[] outlines;
+    public float pickupDuration = 0.6f;
+    public Vector3 pickupOffset = new Vector3(0, 1.5f, 0);
+    public float initialBackDistance = 0.3f;
 
 
     void Awake()
@@ -35,7 +39,7 @@ public class PickableObject : MonoBehaviour
 
         if (playerInRange && playerInventory != null && Input.GetKeyDown(KeyCode.JoystickButton3))
         {
-            PickUp();
+            StartCoroutine(PickupRoutine());
         }
         foreach (var o in outlines)
             o.enabled = playerInRange;
@@ -63,19 +67,54 @@ public class PickableObject : MonoBehaviour
         }
     }
 
-    private void PickUp()
+    private IEnumerator PickupRoutine()
+{
+    playerInRange = false;
+    foreach (var o in outlines) o.enabled = false;
+    if (TryGetComponent<Collider>(out var col)) col.enabled = false;
+
+    Vector3 startPos = transform.position;
+    Vector3 endPos   = playerInventory.transform.position + pickupOffset;
+
+    Vector3 awayDir = (startPos - endPos).normalized;
+    Vector3 backPos = startPos + awayDir * initialBackDistance;
+
+    float halfDur = pickupDuration * 0.5f;
+    Vector3 startScale = transform.localScale;
+
+    float t = 0f;
+    while (t < halfDur)
     {
-        if (itemData == null) return;
-
-        playerInventory.AddItem(itemData);
-
-        if (pickupEffect != null)
-        {
-            Instantiate(pickupEffect, transform.position, Quaternion.identity);
-        }
-
-        Destroy(gameObject);
+        float u = t / halfDur;
+        transform.position = Vector3.Lerp(startPos, backPos, u);
+        transform.localScale = Vector3.Lerp(startScale, startScale * 0.8f, u);
+        t += Time.deltaTime;
+        yield return null;
     }
+
+    transform.position   = backPos;
+    transform.localScale = startScale * 0.8f;
+
+    t = 0f;
+    while (t < halfDur)
+    {
+        float u = t / halfDur;
+        transform.position = Vector3.Lerp(backPos, endPos, u);
+        transform.localScale = Vector3.Lerp(startScale * 0.8f, Vector3.zero, u);
+        t += Time.deltaTime;
+        yield return null;
+    }
+
+    transform.position   = endPos;
+    transform.localScale = Vector3.zero;
+
+    playerInventory.AddItem(itemData);
+    if (pickupEffect != null)
+        Instantiate(pickupEffect, endPos, Quaternion.identity);
+
+    Destroy(gameObject);
+}
+
 
     private void SetupCollider()
     {

@@ -15,14 +15,12 @@ public class EnemyDamageTester : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             health.TakeDamage(10);
-            Debug.Log($"Enemy took 10 damage, remaining HP: {health.currentHealth}");
         }
 
         // Touche E pour infliger la mort instantanément
         if (Input.GetKeyDown(KeyCode.E))
         {
             health.TakeDamage(int.MaxValue);
-            Debug.Log("Enemy should die now!");
         }
     }
 }
