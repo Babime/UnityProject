@@ -11,6 +11,8 @@ public class EnemyDeath : MonoBehaviour
     private EnemyCombat combat;
     private EnemyRangedCombat rangedCombat;
 
+    public bool shouldRespawn = true;
+
     void Awake()
     {
         statsHolder = GetComponent<EnemyStatsHolder>();
@@ -31,52 +33,42 @@ public class EnemyDeath : MonoBehaviour
         if (statsHolder.isDead) return;
             statsHolder.isDead = true;
 
-        movement.enabled = false;
-        if (combat != null) combat.enabled = false;
-        if (rangedCombat != null) rangedCombat.enabled = false;
+        DisableComponents();
         StartCoroutine(DeathRoutine());
     }
 
     private IEnumerator DeathRoutine()
     {
         movement.StopMoving();
+        DisableComponents();
         anim.SetTrigger("DieTemp");
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-
-        bool shouldRespawn = true;
-
         if (shouldRespawn)
         {
+            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+            shouldRespawn = false;
             statsHolder.isDead = false;
-            movement.enabled = false;
-            if (combat != null) combat.enabled = false;
-            if (rangedCombat != null) rangedCombat.enabled = false;
+
 
             anim.SetTrigger("Respawn");
             yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + 2f);
             healthComponent.ResetHealth();
-            movement.enabled = true;
-            if (combat != null) combat.enabled = true;
-            if (rangedCombat != null) rangedCombat.enabled = true;
+            EnableComponents();
+            movement.StartMoving();
         }
         else
         {
-            if (combat != null) combat.enabled = false;
-            if (rangedCombat != null) rangedCombat.enabled = false;
+            yield return new WaitForSeconds(0);
             anim.SetTrigger("DiePerm");
             yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
             Destroy(gameObject);
-            if (combat != null) combat.enabled = true;
-            if (rangedCombat != null) rangedCombat.enabled = true;
         }
     }
 
     private IEnumerator SpawnRoutine()
     {
-        if (combat != null) combat.enabled = false;
-        healthComponent.isInvulnerable = true;
-        if (rangedCombat != null) rangedCombat.enabled = false;
         movement.StopMoving();
+        healthComponent.isInvulnerable = true;
+        DisableComponents();
         anim.SetTrigger("Spawn");
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
 
@@ -84,6 +76,18 @@ public class EnemyDeath : MonoBehaviour
 
         movement.StartMoving();
         healthComponent.isInvulnerable = false;
+        movement.StartMoving();
+        EnableComponents();
+    }
+
+    private void DisableComponents()
+    {
+        if (combat != null) combat.enabled = false;
+        if (rangedCombat != null) rangedCombat.enabled = false;
+    }
+
+    private void EnableComponents()
+    {
         if (combat != null) combat.enabled = true;
         if (rangedCombat != null) rangedCombat.enabled = true;
     }
