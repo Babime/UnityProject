@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4338029326456906599}
   - component: {fileID: 3810378241601491082}
   - component: {fileID: 3219090415567561860}
+  - component: {fileID: 6244783518486454717}
   m_Layer: 0
   m_Name: Pickable_2H_Sword
   m_TagString: Interactable
@@ -118,8 +119,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.8390283, y: 2.3658006, z: 0.24801981}
-  m_Center: {x: 0.0000036656857, y: 0.78153896, z: -0.0000000037252903}
+  m_Size: {x: 2.2214162, y: 2.3658006, z: 1.8890991}
+  m_Center: {x: 0.0024119616, y: 0.78153896, z: 0.009613037}
 --- !u!114 &3219090415567561860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,3 +135,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 50
   pickupEffect: {fileID: 0}
+  pickupDuration: 0.6
+  pickupOffset: {x: 0, y: 1.5, z: 0}
+  initialBackDistance: 0.3
+--- !u!114 &6244783518486454717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3150761901862367803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []

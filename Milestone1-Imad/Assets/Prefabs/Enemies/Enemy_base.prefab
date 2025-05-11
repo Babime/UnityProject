@@ -525,6 +525,7 @@ GameObject:
   - component: {fileID: 8045723854154634210}
   - component: {fileID: 6560810495789784874}
   - component: {fileID: 472947350911254939}
+  - component: {fileID: 4962245967968525439}
   m_Layer: 0
   m_Name: Enemy_base
   m_TagString: Untagged
@@ -735,6 +736,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponPrefab: {fileID: 1868960674878772662, guid: d043df17e06083245ae95a365971ef09, type: 3}
   handSlot: {fileID: 3648841711884310840}
+--- !u!114 &4962245967968525439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2313695253191169565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464673fbfe2238440b8857b72df26a8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTakeDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5315551262796849031}
+        m_TargetAssemblyTypeName: EnemyHealth, Assembly-CSharp
+        m_MethodName: TakeDamage
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2341408336680177515
 GameObject:
   m_ObjectHideFlags: 0

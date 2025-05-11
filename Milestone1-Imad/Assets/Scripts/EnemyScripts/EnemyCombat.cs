@@ -33,6 +33,7 @@ public class EnemyCombat : MonoBehaviour
         {
             var w = Instantiate(weaponPrefab, handSlot);
             w.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+            w.AddComponent<WeaponDamageDealer>();
         }
     }
 

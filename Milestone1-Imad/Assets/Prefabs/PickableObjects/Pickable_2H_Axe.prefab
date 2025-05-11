@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 64067980339527257}
   - component: {fileID: 4580556973009120526}
   - component: {fileID: 5562466924097329723}
+  - component: {fileID: -6602289516211220661}
   m_Layer: 0
   m_Name: Pickable_2H_Axe
   m_TagString: Interactable
@@ -118,8 +119,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.2395483, y: 1.7246284, z: 0.26180083}
-  m_Center: {x: 0.00000029802322, y: 0.42933238, z: -0.0000014230609}
+  m_Size: {x: 2.656196, y: 1.7246284, z: 1.6274109}
+  m_Center: {x: -0.06513333, y: 0.42933238, z: 0.031570435}
 --- !u!114 &5562466924097329723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,3 +135,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 50
   pickupEffect: {fileID: 0}
+  pickupDuration: 0.6
+  pickupOffset: {x: 0, y: 1.5, z: 0}
+  initialBackDistance: 0.3
+--- !u!114 &-6602289516211220661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3206703478652916369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
