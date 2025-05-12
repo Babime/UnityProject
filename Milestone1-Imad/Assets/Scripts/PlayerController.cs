@@ -20,12 +20,17 @@ public class PlayerController : MonoBehaviour
     private bool isDashing = false;
     private bool canDash = true;
     private bool isRunning = false;
+    private bool isUsingItem = false;
     private PlayerStats stats;
     PlayerCombat combat;
+    public PlayerInventory inventory;
     private bool isAlive = true;
 
     [Header("Control Flags")]
     public bool canMove = true;
+    private GameObject goldAura;
+    private GameObject healingAura;
+    public GameObject bloodAura;
 
     void Awake()
     {
@@ -33,6 +38,12 @@ public class PlayerController : MonoBehaviour
         rb.freezeRotation = true;
         stats = GetComponent<PlayerStats>();
         combat = GetComponent<PlayerCombat>();
+        goldAura = GameObject.Find("Player Gold Aura");
+        healingAura = GameObject.Find("Player Healing Aura");
+        bloodAura = GameObject.Find("Player Blood Aura");
+        if (goldAura != null) goldAura.SetActive(false);
+        if (healingAura != null) healingAura.SetActive(false);
+        if (bloodAura != null) bloodAura.SetActive(false);
     }
 
     void Update()
@@ -57,6 +68,48 @@ public class PlayerController : MonoBehaviour
                 inputDir = Vector3.zero;
             }
 
+            if (Input.GetKeyDown(KeyCode.JoystickButton2) && !isUsingItem)
+            {
+                if (inventory.CurrentItem != null && 
+                    (inventory.CurrentItem.hpRegenAmount > 0 || inventory.CurrentItem.staminaRegenAmount > 0))
+                {
+                    
+                    canMove = false;
+                    canDash = false;
+                    isUsingItem = true;
+                    inventory.canNavigate = false;
+                    inputDir = Vector3.zero;
+                    rb.velocity = Vector3.zero;
+                    animator.SetBool("CanReturnToBlendTree", false);
+
+                    if (inventory.CurrentItem.auraPrefab == "Player Gold Aura")
+                    {
+                        goldAura.SetActive(true);
+                    }
+                    else if (inventory.CurrentItem.auraPrefab == "Player Healing Aura")
+                    {
+                        healingAura.SetActive(true);
+                    }
+
+                    if (animator != null)
+                    {
+                        animator.SetTrigger("Interact");
+                    }
+
+                    if (inventory.CurrentItem.hpRegenAmount > 0)
+                    {
+                        stats.Heal(inventory.CurrentItem.hpRegenAmount);
+                    }
+
+                    if (inventory.CurrentItem.staminaRegenAmount > 0)
+                    {
+                        stats.RecoverStamina(inventory.CurrentItem.staminaRegenAmount);
+                    }
+
+                    StartCoroutine(ItemInUseCooldown());
+                }
+            }
+
             bool shiftHeld = Input.GetKey(KeyCode.LeftShift) || Input.GetAxis("Sprint") > 0;
             isRunning = canMove && shiftHeld && isMoving && stats.currentStamina > 0f;
 
@@ -78,6 +131,8 @@ public class PlayerController : MonoBehaviour
             {
                 Dash();
             }
+
+            
         }
     }
 
@@ -135,6 +190,27 @@ public class PlayerController : MonoBehaviour
         canDash = true;
     }
 
+    IEnumerator ItemInUseCooldown()
+    {
+        yield return new WaitForSeconds(1.2f);
+        
+        if (inventory.CurrentItem.auraPrefab == "Player Gold Aura")
+        {
+            goldAura.SetActive(false);
+        }
+        else if (inventory.CurrentItem.auraPrefab == "Player Healing Aura")
+        {
+            healingAura.SetActive(false);
+        }
+
+        animator.SetBool("CanReturnToBlendTree", true);
+        inventory.RemoveCurrentItemFromInventory();
+        canMove = true;
+        canDash = true;
+        isUsingItem = false;
+        inventory.canNavigate = true;
+    }
+
     public void Die()
     {
         isAlive = false;
@@ -150,3 +226,6 @@ public class PlayerController : MonoBehaviour
         isAlive = true;
     }
 }
+
+
+

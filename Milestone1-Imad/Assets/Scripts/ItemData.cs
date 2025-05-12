@@ -19,6 +19,12 @@ public class ItemData : ScriptableObject
 
     [Header("Combat Settings")]
     public List<AttackStep> comboSequence = new();
+
+    
+    [Header("Stats Settings")]
+    public float hpRegenAmount = 0f;
+    public float staminaRegenAmount = 0f;
+    public string auraPrefab;
 }
 
 

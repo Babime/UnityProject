@@ -39,4 +39,13 @@ public class ItemHandler : MonoBehaviour
             currentInHandObject = null;
         }
     }
+
+    public void UnequipItem()
+    {
+        if (currentInHandObject != null)
+        {
+            currentInHandObject.SetActive(false);
+            currentInHandObject = null;
+        }
+    }
 }
