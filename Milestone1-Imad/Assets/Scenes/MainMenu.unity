@@ -4675,11 +4675,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2069978778}
   m_CullTransparentMesh: 1
-<<<<<<< HEAD:Milestone1-Imad/Assets/Scenes/SampleScene.unity
---- !u!1001 &1925707966
-=======
 --- !u!1001 &2097691749
->>>>>>> 5ebd4f7f43b9de62456419f68da7edcbe0a62f56:Milestone1-Imad/Assets/Scenes/MainMenu.unity
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
