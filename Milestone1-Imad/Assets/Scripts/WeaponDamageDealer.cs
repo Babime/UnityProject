@@ -7,6 +7,7 @@ public class WeaponDamageDealer : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.tag == this.tag) return;
         DamageReceiver receiver = other.GetComponent<DamageReceiver>();
         if (receiver != null)
         {

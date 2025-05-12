@@ -10,7 +10,7 @@ public class EnemyHealth : MonoBehaviour
 
     public float currentHealth; // Changed to float
     public bool isInvulnerable = false;
-    public GameObject damageAura;
+    private GameObject damageAura;
 
     void Start()
     {

@@ -16,6 +16,6 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: 39006a6373ba47d4ba1abc6c366b08c5, type: 3}
   inHandObjectName: potion_medium_red
   comboSequence: []
-  hpRegenAmount: 50
+  hpRegenAmount: 20
   staminaRegenAmount: 0
   auraPrefab: Player Healing Aura

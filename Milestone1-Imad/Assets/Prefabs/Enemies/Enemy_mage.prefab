@@ -2492,13 +2492,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4962245967968525439, guid: af93db2054bcf3f4f9efbcb401bad65d, type: 3}
+      propertyPath: onTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7120728536120204454, guid: af93db2054bcf3f4f9efbcb401bad65d, type: 3}
       propertyPath: attackRange
       value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 472947350911254939, guid: af93db2054bcf3f4f9efbcb401bad65d, type: 3}
-    - {fileID: 4962245967968525439, guid: af93db2054bcf3f4f9efbcb401bad65d, type: 3}
     m_RemovedGameObjects:
     - {fileID: 5283485442969698919, guid: af93db2054bcf3f4f9efbcb401bad65d, type: 3}
     - {fileID: 5135106132575704127, guid: af93db2054bcf3f4f9efbcb401bad65d, type: 3}
@@ -2542,9 +2545,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2313695253191169565, guid: af93db2054bcf3f4f9efbcb401bad65d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6128380835903746940}
-    - targetCorrespondingSourceObject: {fileID: 2313695253191169565, guid: af93db2054bcf3f4f9efbcb401bad65d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2233293490365968922}
   m_SourcePrefab: {fileID: 100100000, guid: af93db2054bcf3f4f9efbcb401bad65d, type: 3}
 --- !u!4 &322726410033710483 stripped
 Transform:
@@ -2569,33 +2569,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 1620347313568842, guid: 13412ef49f4867b44829ecb8527f3618, type: 3}
---- !u!114 &2233293490365968922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1094758822855188265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 464673fbfe2238440b8857b72df26a8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onTakeDamage:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5315551262796849031, guid: af93db2054bcf3f4f9efbcb401bad65d, type: 3}
-        m_TargetAssemblyTypeName: EnemyHealth, Assembly-CSharp
-        m_MethodName: TakeDamage
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!4 &2044965158840001310 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3696210855034153514, guid: af93db2054bcf3f4f9efbcb401bad65d, type: 3}

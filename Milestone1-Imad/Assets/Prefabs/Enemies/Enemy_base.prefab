@@ -528,7 +528,7 @@ GameObject:
   - component: {fileID: 4962245967968525439}
   m_Layer: 0
   m_Name: Enemy_base
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -697,7 +697,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2313695253191169565}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc9b527ed3ad9b444b6f3f59f0491a38, type: 3}
   m_Name: 
@@ -2348,6 +2348,7 @@ GameObject:
   - component: {fileID: 8712900865422212669}
   - component: {fileID: 5712597989596647751}
   - component: {fileID: 8164102717711400680}
+  - component: {fileID: 2525246385281126793}
   m_Layer: 0
   m_Name: Health_Back
   m_TagString: Untagged
@@ -2413,6 +2414,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2525246385281126793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6996083457116780306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43e01b0e997461c43b07d85b749644d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 0}
 --- !u!1 &7233499021777325569
 GameObject:
   m_ObjectHideFlags: 0

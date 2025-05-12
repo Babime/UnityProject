@@ -17,5 +17,5 @@ MonoBehaviour:
   inHandObjectName: potion_big_orange
   comboSequence: []
   hpRegenAmount: 0
-  staminaRegenAmount: 120
+  staminaRegenAmount: 80
   auraPrefab: Player Gold Aura
