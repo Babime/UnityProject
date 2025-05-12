@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
@@ -61,6 +62,8 @@ public class PlayerStats : MonoBehaviour
     public void TakeDamage(float amount)
     {
         if (!isAlive) return;
+        
+        playerController.bloodAura.SetActive(true);
 
         currentHP -= amount;
         if (currentHP <= 0f)
@@ -68,6 +71,14 @@ public class PlayerStats : MonoBehaviour
             currentHP = 0f;
             Die();
         }
+        StartCoroutine(TakingDamage());
+    }
+
+    
+    IEnumerator TakingDamage()
+    {
+        yield return new WaitForSeconds(0.7f); 
+        playerController.bloodAura.SetActive(false);
     }
 
     public bool SpendStamina(float amount)

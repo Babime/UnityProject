@@ -80,6 +80,14 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
+    public void UnequipCurrentItem()
+    {
+        if (itemHandler != null)
+        {
+            itemHandler.UnequipItem();
+        }
+    }
+
     private void UpdateInventoryUI()
     {
         if (items.Count == 0)
@@ -109,5 +117,24 @@ public class PlayerInventory : MonoBehaviour
             }
             return null;
         }
+    }
+
+    public void RemoveCurrentItemFromInventory()
+    {
+        if (items.Count == 0) return;
+        
+        UnequipCurrentItem();
+        items.RemoveAt(currentIndex);
+        if (items.Count == 0)
+        {
+            currentItemImage.sprite = null;
+            previousItemImage.sprite = null;
+            nextItemImage.sprite = null;
+            return;
+        }
+
+        currentIndex = currentIndex % items.Count; 
+        EquipCurrentItem();
+        UpdateInventoryUI();
     }
 }

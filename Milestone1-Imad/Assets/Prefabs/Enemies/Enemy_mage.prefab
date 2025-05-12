@@ -2492,6 +2492,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4962245967968525439, guid: af93db2054bcf3f4f9efbcb401bad65d, type: 3}
+      propertyPath: onTakeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7120728536120204454, guid: af93db2054bcf3f4f9efbcb401bad65d, type: 3}
       propertyPath: attackRange
       value: 8
