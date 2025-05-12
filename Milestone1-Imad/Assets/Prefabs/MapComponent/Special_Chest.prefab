@@ -614,6 +614,11 @@ MonoBehaviour:
   portalDelay: 0.5
   pullDuration: 1
   pullSpinSpeed: 720
+  fadeMessagePrefab: {fileID: 4496692349767468611, guid: b98c9c7db26641b4c890dc791b5cb146, type: 3}
+  specialMessage: "L'histoire de ma m\xE8re n'\xE9tait pas cens\xE9 se finir comme
+    \xE7a..."
+  fadeDuration: 1
+  messageDisplayDuration: 3
 --- !u!1001 &6692879747053874457
 PrefabInstance:
   m_ObjectHideFlags: 0
