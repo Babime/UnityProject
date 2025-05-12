@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class SpecialChestController : MonoBehaviour
 {
@@ -29,6 +31,13 @@ public class SpecialChestController : MonoBehaviour
     public float pullDuration = 1f;
     [Tooltip("Vitesse de rotation du joueur pendant l'aspiration (°/s)")]
     public float pullSpinSpeed = 720f;
+
+    [Header("Fade & Message UI")]
+    [Tooltip("Prefab du Canvas contenant FadePanel + MessageText")]
+    public GameObject fadeMessagePrefab;
+    [Tooltip("Texte à afficher")]
+    public string specialMessage = "L'histoire de ma mère n'était pas censé se finir comme ça...";
+
 
     private Transform player;
     private bool hasActivated = false;
@@ -90,7 +99,15 @@ public class SpecialChestController : MonoBehaviour
         // 5) Attirer et faire tourner le joueur dans le portail
         yield return StartCoroutine(PullPlayerInto(portalPos, portal.transform));
 
-        // 6) Détruire le coffre
+        // 6) FONDU NOIR & MESSAGE
+        var ui = Instantiate(fadeMessagePrefab);
+        var fadeUI = ui.GetComponent<FadeMessageUI>();
+        if (fadeUI != null)
+            yield return StartCoroutine(fadeUI.Play(specialMessage));
+        else
+            Debug.LogError("FadeMessageUI manquant sur le prefab FadeMessageCanvas !");
+
+        // 7) Détruire le coffre
         Destroy(gameObject);
     }
 
@@ -122,12 +139,12 @@ public class SpecialChestController : MonoBehaviour
         // player.rotation = portalTransform.rotation;
 
         // (Optionnel) parenté pour rester dans le portail
-        player.SetParent(portalTransform);
+        // player.SetParent(portalTransform);
 
         // Réactiver controller et movement après un bref délai ou condition
         yield return null;
-        if (cc != null) cc.enabled = true;
-        if (pm != null) pm.enabled = true;
+        // if (cc != null) cc.enabled = true;
+        // if (pm != null) pm.enabled = true;
     }
 
     void OnDrawGizmosSelected()

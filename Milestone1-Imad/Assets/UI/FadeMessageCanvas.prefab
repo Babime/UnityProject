@@ -12,13 +12,14 @@ GameObject:
   - component: {fileID: 3201704858163990282}
   - component: {fileID: 8141450940726638920}
   - component: {fileID: 1701251764952595217}
+  - component: {fileID: -4625396081910601790}
   m_Layer: 5
   m_Name: FadeMessageCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7601639869586269413
 RectTransform:
   m_ObjectHideFlags: 0
@@ -102,6 +103,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &-4625396081910601790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4496692349767468611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2897d17441a2ca441aead5df9205e1d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeImage: {fileID: 8540189024392618296}
+  messageText: {fileID: 4502974380555309072}
+  fadeDuration: 3
+  displayDuration: 1e+11
 --- !u!1 &6832403232222379273
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,8 +146,8 @@ RectTransform:
   m_GameObject: {fileID: 6832403232222379273}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7274385212070586547}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -247,7 +264,6 @@ GameObject:
   - component: {fileID: 7274385212070586547}
   - component: {fileID: 249086405211056717}
   - component: {fileID: 8540189024392618296}
-  - component: {fileID: 6717789550850101865}
   m_Layer: 5
   m_Name: FadePanel
   m_TagString: Untagged
@@ -264,8 +280,8 @@ RectTransform:
   m_GameObject: {fileID: 7070568750061427811}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5547367361019114965}
   m_Father: {fileID: 7601639869586269413}
@@ -313,15 +329,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!225 &6717789550850101865
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7070568750061427811}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
