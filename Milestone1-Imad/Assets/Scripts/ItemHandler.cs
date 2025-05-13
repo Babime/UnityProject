@@ -6,7 +6,7 @@ public class ItemHandler : MonoBehaviour
     public Transform handAnchor; 
 
     private Dictionary<string, GameObject> inHandObjects = new Dictionary<string, GameObject>();
-    private GameObject currentInHandObject;
+    public GameObject currentInHandObject;
 
     void Awake()
     {

@@ -9,7 +9,7 @@ public class EnemyStatsHolder : MonoBehaviour
 
     [Header("Movement")]
     public float moveSpeed = 3f;
-    public float perseveranceTime = 2f;
+    public float perseveranceRange = 2f;
     public float detectionRange = 5f;
     public float rotationSpeed = 720f;
 

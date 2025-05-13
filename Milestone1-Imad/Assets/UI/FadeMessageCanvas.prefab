@@ -117,8 +117,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeImage: {fileID: 8540189024392618296}
   messageText: {fileID: 4502974380555309072}
-  fadeDuration: 3
+  fadeDuration: 1.2
   displayDuration: 1e+11
+  typewriterDelay: 0.05
 --- !u!1 &6832403232222379273
 GameObject:
   m_ObjectHideFlags: 0

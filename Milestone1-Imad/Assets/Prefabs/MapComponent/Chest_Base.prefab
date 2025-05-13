@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 140081570854614424}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: LootSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 30951152347862397}
   - component: {fileID: 9003941689925203026}
   - component: {fileID: 8790746945054444858}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: InteractBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 8229856098268838962}
   - component: {fileID: 195230585105998930}
   - component: {fileID: 750462818885358694}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: KeyPrompt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: E
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -250,7 +250,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5283029210097668079}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: HighlightGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ GameObject:
   - component: {fileID: 7588982276216090256}
   - component: {fileID: 3295164369479357682}
   - component: {fileID: 8484154081820985830}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: chest (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -368,7 +368,7 @@ GameObject:
   - component: {fileID: 8627162669434335317}
   - component: {fileID: 2604672460559035098}
   - component: {fileID: 5073330968456261986}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: lid (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -453,7 +453,7 @@ GameObject:
   - component: {fileID: 3549490358835397896}
   - component: {fileID: 3693714693563061377}
   - component: {fileID: 617537491904585611}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: InteractUI_Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -565,7 +565,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3958186289588759264}
   - component: {fileID: 8452305866581950010}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Chest_Base
   m_TagString: Interactable
   m_Icon: {fileID: 0}
@@ -674,9 +674,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4327823178384824310, guid: 8f6b24ebb580ea747accc65703bec548, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: -1751480086967751553, guid: 8f6b24ebb580ea747accc65703bec548, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8f6b24ebb580ea747accc65703bec548, type: 3}
       propertyPath: m_Name
       value: chest
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8f6b24ebb580ea747accc65703bec548, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -69,4 +69,4 @@ MonoBehaviour:
   mobs:
   - prefab: {fileID: 0}
     localPosition: {x: 0, y: 0, z: 0}
-  respawnDelay: 10
+  respawnDelay: -1

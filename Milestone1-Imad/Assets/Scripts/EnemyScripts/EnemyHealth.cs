@@ -24,7 +24,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void TakeDamage(float amount) // Changed parameter to float
     {
-        if (isInvulnerable) return;
+        if (isInvulnerable || statsHolder.isDead) return;
         damageAura.SetActive(true);
         currentHealth -= amount;
         UpdateHealthBar();

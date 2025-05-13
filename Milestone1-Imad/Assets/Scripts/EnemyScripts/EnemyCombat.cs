@@ -16,6 +16,7 @@ public class EnemyCombat : MonoBehaviour
     private Transform player;
     private float lastAttackTime = -Mathf.Infinity;
     private bool isAttacking = false;
+    private BoxCollider weaponCollider;
 
 
     void Awake()
@@ -34,6 +35,8 @@ public class EnemyCombat : MonoBehaviour
             var w = Instantiate(weaponPrefab, handSlot);
             w.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             w.AddComponent<WeaponDamageDealer>();
+            weaponCollider = w.GetComponent<BoxCollider>();
+            weaponCollider.enabled = false;
         }
     }
 
@@ -60,6 +63,7 @@ public class EnemyCombat : MonoBehaviour
 
     private IEnumerator AttackRoutine()
     {
+        weaponCollider.enabled = true;
         movement.StopMoving();
         isAttacking = true;
         lastAttackTime = Time.time;
@@ -67,6 +71,7 @@ public class EnemyCombat : MonoBehaviour
         anim.SetTrigger("Attack");
 
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length - 1f);
+        weaponCollider.enabled = false;
         movement.StartMoving();
         isAttacking = false;
     }

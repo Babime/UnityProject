@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
         public Vector3 localPosition;
     }
     public List<MobEntry> mobs = new List<MobEntry>();
-    public float respawnDelay   = 10f;
+    public float respawnDelay   = -1f;
 
     private bool hasSpawned = false;
     private List<GameObject> spawned = new List<GameObject>();
@@ -41,6 +41,7 @@ public class EnemySpawner : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         if (!other.CompareTag("Player")) return;
+        if (respawnDelay <= 0f) return;
         StartCoroutine(RespawnDelay());
     }
 

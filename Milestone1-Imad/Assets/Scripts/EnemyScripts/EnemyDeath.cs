@@ -31,7 +31,7 @@ public class EnemyDeath : MonoBehaviour
     public void HandleDeath()
     {
         if (statsHolder.isDead) return;
-            statsHolder.isDead = true;
+        statsHolder.isDead = true;
 
         DisableComponents();
         StartCoroutine(DeathRoutine());
@@ -39,25 +39,24 @@ public class EnemyDeath : MonoBehaviour
 
     private IEnumerator DeathRoutine()
     {
-        movement.StopMoving();
         DisableComponents();
         anim.SetTrigger("DieTemp");
         if (shouldRespawn)
         {
-            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length+ 2f);
             shouldRespawn = false;
-            statsHolder.isDead = false;
 
 
             anim.SetTrigger("Respawn");
-            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length + 2f);
+            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
             healthComponent.ResetHealth();
             EnableComponents();
             movement.StartMoving();
+            statsHolder.isDead = false;
         }
         else
         {
-            yield return new WaitForSeconds(0);
+            yield return new WaitForSeconds(0.5f);
             anim.SetTrigger("DiePerm");
             yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
             Destroy(gameObject);
@@ -74,7 +73,6 @@ public class EnemyDeath : MonoBehaviour
 
         GetComponent<EnemyHealth>().ResetHealth();
 
-        movement.StartMoving();
         healthComponent.isInvulnerable = false;
         movement.StartMoving();
         EnableComponents();

@@ -53,6 +53,10 @@ PrefabInstance:
       value: potion_huge_red
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7efc2bd22b770144698514be282bb4c6, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7efc2bd22b770144698514be282bb4c6, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}

@@ -53,6 +53,10 @@ PrefabInstance:
       value: potion_medium_orange
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fe9796f393676454a8bc38c754ec7f5a, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fe9796f393676454a8bc38c754ec7f5a, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}

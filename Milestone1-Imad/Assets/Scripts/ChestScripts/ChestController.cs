@@ -51,7 +51,7 @@ public class ChestController : MonoBehaviour
         if (interactUI)
             interactUI.SetActive(canInteract);
 
-        if (canInteract && Input.GetKeyDown(openKey))
+        if (canInteract && (Input.GetKeyDown(openKey) || Input.GetKeyDown(KeyCode.JoystickButton1)))
             StartCoroutine(OpenAndDisappear());
     }
 

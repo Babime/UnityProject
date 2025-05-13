@@ -11,6 +11,13 @@ public class PlayerCombat : MonoBehaviour
     private int currentComboIndex = 0;
     private bool canCombo = false;
     private Coroutine activeAttackCoroutine;
+    private ItemHandler itemHandler;
+    private WeaponDamageDealer weaponDamageDealer = null;
+
+    private void Awake()
+    {
+        itemHandler = GetComponent<ItemHandler>();
+    }
 
     void Update()
     {
@@ -43,6 +50,9 @@ public class PlayerCombat : MonoBehaviour
             }
         }
 
+        weaponDamageDealer = itemHandler.currentInHandObject.GetComponent<WeaponDamageDealer>();
+        weaponDamageDealer.EnableWeapon();
+    
         if (!string.IsNullOrEmpty(step.animationTrigger))
             animator.SetTrigger(step.animationTrigger);
 
@@ -68,6 +78,7 @@ public class PlayerCombat : MonoBehaviour
 
     public void EndAttackMovementLock()
     {
+        weaponDamageDealer.DisableWeapon();
         animator.SetBool("CanReturnToBlendTree", true);
         playerController.canMove = true;
         animator.SetBool("CanMoveInterrupt", false);

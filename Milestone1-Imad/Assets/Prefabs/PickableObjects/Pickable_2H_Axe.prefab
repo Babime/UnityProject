@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4580556973009120526}
   - component: {fileID: 5562466924097329723}
   - component: {fileID: -6602289516211220661}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Pickable_2H_Axe
   m_TagString: Interactable
   m_Icon: {fileID: 0}

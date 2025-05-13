@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3810378241601491082}
   - component: {fileID: 3219090415567561860}
   - component: {fileID: 6244783518486454717}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Pickable_2H_Sword
   m_TagString: Interactable
   m_Icon: {fileID: 0}

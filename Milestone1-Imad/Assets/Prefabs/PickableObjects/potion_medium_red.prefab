@@ -53,6 +53,10 @@ PrefabInstance:
       value: potion_medium_red
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 60395bb050875254d9a71bada8f71235, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 60395bb050875254d9a71bada8f71235, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -146,4 +150,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64187559c72c6d843a5768adddb31e90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: b1c2764f5664c154fbec5322e2eab22b, type: 2}
+  itemData: {fileID: 11400000, guid: 4fc6be8baf3c28049936fa6893e0cc40, type: 2}

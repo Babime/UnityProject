@@ -10,7 +10,6 @@ public class EnemyMovement : MonoBehaviour
     private NavMeshAgent agent;
     private Animator anim;
     bool isAggro = false;
-    private float lastSeenTime = -Mathf.Infinity;
     public bool isMoving = true;
 
 
@@ -27,17 +26,20 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
-        if (target == null || !isMoving || statsHolder.isDead) return;
+        if (target == null || !isMoving) return;
+        if (statsHolder.isDead) {
+            StopMoving();
+            return;
+        }
 
         float dist = Vector3.Distance(transform.position, target.position);
 
         if (dist <= statsHolder.detectionRange)
         {
             isAggro = true;
-            lastSeenTime = Time.time;
         }
 
-        if (isAggro && Time.time - lastSeenTime > statsHolder.perseveranceTime)
+        if (isAggro && dist > statsHolder.perseveranceRange)
         {
             isAggro = false;
         }
@@ -46,8 +48,10 @@ public class EnemyMovement : MonoBehaviour
         {
             agent.isStopped = true;
             anim.SetFloat("MoveSpeed", 0f);
+            agent.SetDestination(transform.position);
             return;
         }
+        
         if (dist > statsHolder.attackRange)
         {
             agent.isStopped = false;
@@ -72,8 +76,11 @@ public class EnemyMovement : MonoBehaviour
 
     public void StopMoving()
     {
+        isAggro = false;
         isMoving = false;
         agent.isStopped = true;
+        agent.SetDestination(transform.position);
+        agent.velocity = Vector3.zero;
         anim.SetFloat("MoveSpeed", 0f);
     }
     public void StartMoving()
